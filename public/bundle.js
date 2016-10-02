@@ -106,11 +106,11 @@
 
 	var Main = __webpack_require__(229);
 	var Weather = __webpack_require__(231);
-	var About = __webpack_require__(257);
-	var Examples = __webpack_require__(258);
+	var About = __webpack_require__(258);
+	var Examples = __webpack_require__(259);
 
 	// Load foundation.
-	__webpack_require__(259);
+	__webpack_require__(260);
 	$(document).foundation();
 
 	ReactDOM.render(React.createElement(
@@ -25612,6 +25612,7 @@
 	var WeatherForm = __webpack_require__(232);
 	var WeatherMessage = __webpack_require__(233);
 	var openWeatherMap = __webpack_require__(234);
+	var ErrorModal = __webpack_require__(257);
 
 	var Weather = React.createClass({
 	  displayName: 'Weather',
@@ -25625,7 +25626,8 @@
 	    var that = this;
 
 	    this.setState({
-	      isLoading: true
+	      isLoading: true,
+	      errorMessage: undefined
 	    });
 
 	    openWeatherMap.getTemp(location).then(function (temp) {
@@ -25634,17 +25636,20 @@
 	        temp: temp,
 	        isLoading: false
 	      });
-	    }, function (errorMessage) {
+	    }, function (e) {
 	      that.setState({
-	        isLoading: false
+	        isLoading: false,
+	        errorMessage: e.message
 	      });
-	      console.log(errorMessage);
 	    });
 	  },
 	  render: function render() {
-	    var location = this.state.location;
-	    var temp = this.state.temp;
-	    var isLoading = this.state.isLoading;
+	    var _state = this.state;
+	    var location = _state.location;
+	    var temp = _state.temp;
+	    var isLoading = _state.isLoading;
+	    var errorMessage = _state.errorMessage;
+
 
 	    function renderMessage() {
 	      if (isLoading) {
@@ -25658,6 +25663,12 @@
 	      }
 	    }
 
+	    function renderError() {
+	      if (typeof errorMessage === 'string') {
+	        return React.createElement(ErrorModal, { message: errorMessage });
+	      };
+	    }
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25667,7 +25678,8 @@
 	        'Get Weather'
 	      ),
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
-	      renderMessage()
+	      renderMessage(),
+	      renderError()
 	    );
 	  }
 	});
@@ -27119,6 +27131,65 @@
 /* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var React = __webpack_require__(8);
+
+	var ErrorModal = React.createClass({
+	  displayName: 'ErrorModal',
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: 'Error'
+	    };
+	  },
+	  propTypes: {
+	    title: React.PropTypes.string,
+	    message: React.PropTypes.string.isRequired
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var modal = new Foundation.Reveal($('#error-modal'));
+	    modal.open();
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var title = _props.title;
+	    var message = _props.message;
+
+	    return React.createElement(
+	      'div',
+	      { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        title
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        message
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        React.createElement(
+	          'button',
+	          { className: 'button hollow', 'data-close': '' },
+	          'Okay'
+	        )
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = ErrorModal;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var React = __webpack_require__(8);
@@ -27143,7 +27214,7 @@
 	module.exports = About;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27197,16 +27268,16 @@
 	module.exports = Examples;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(260);
+	var content = __webpack_require__(261);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(262)(content, {});
+	var update = __webpack_require__(263)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27223,10 +27294,10 @@
 	}
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(261)();
+	exports = module.exports = __webpack_require__(262)();
 	// imports
 
 
@@ -27237,7 +27308,7 @@
 
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports) {
 
 	/*
@@ -27293,7 +27364,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
