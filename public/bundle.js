@@ -106,15 +106,15 @@
 
 	var Main = __webpack_require__(229);
 	var Weather = __webpack_require__(231);
-	var About = __webpack_require__(258);
-	var Examples = __webpack_require__(259);
+	var About = __webpack_require__(259);
+	var Examples = __webpack_require__(260);
 
 	// Load foundation.
-	__webpack_require__(260);
+	__webpack_require__(261);
 	$(document).foundation();
 
 	// App Css.
-	__webpack_require__(264);
+	__webpack_require__(265);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27161,6 +27161,8 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	var React = __webpack_require__(8);
+	var ReactDOM = __webpack_require__(165);
+	var ReactDOMServer = __webpack_require__(258);
 
 	var ErrorModal = React.createClass({
 	  displayName: 'ErrorModal',
@@ -27175,15 +27177,11 @@
 	    message: React.PropTypes.string.isRequired
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var modal = new Foundation.Reveal($('#error-modal'));
-	    modal.open();
-	  },
-	  render: function render() {
 	    var _props = this.props;
 	    var title = _props.title;
 	    var message = _props.message;
 
-	    return React.createElement(
+	    var modalMarkup = React.createElement(
 	      'div',
 	      { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
 	      React.createElement(
@@ -27206,8 +27204,16 @@
 	        )
 	      )
 	    );
-	  }
 
+	    var $modal = $(ReactDOMServer.renderToString(modalMarkup));
+	    $(ReactDOM.findDOMNode(this)).html($modal);
+
+	    var modal = new Foundation.Reveal($('#error-modal'));
+	    modal.open();
+	  },
+	  render: function render() {
+	    return React.createElement('div', null);
+	  }
 	});
 
 	module.exports = ErrorModal;
@@ -27215,6 +27221,15 @@
 
 /***/ },
 /* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(155);
+
+
+/***/ },
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27241,7 +27256,7 @@
 	module.exports = About;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27295,16 +27310,16 @@
 	module.exports = Examples;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(261);
+	var content = __webpack_require__(262);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(263)(content, {});
+	var update = __webpack_require__(264)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27321,10 +27336,10 @@
 	}
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(262)();
+	exports = module.exports = __webpack_require__(263)();
 	// imports
 
 
@@ -27335,7 +27350,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports) {
 
 	/*
@@ -27391,7 +27406,7 @@
 
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27645,16 +27660,16 @@
 
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(265);
+	var content = __webpack_require__(266);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(263)(content, {});
+	var update = __webpack_require__(264)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27671,10 +27686,10 @@
 	}
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(262)();
+	exports = module.exports = __webpack_require__(263)();
 	// imports
 
 
