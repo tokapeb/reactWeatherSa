@@ -27128,14 +27128,14 @@
 	    'div',
 	    null,
 	    React.createElement(
-	      'h3',
+	      'h1',
 	      null,
-	      'About page'
+	      'About'
 	    ),
 	    React.createElement(
 	      'p',
 	      null,
-	      'Welcome to the About page'
+	      'This is a weather application build in React. The only purpose is learning.'
 	    )
 	  );
 	};
